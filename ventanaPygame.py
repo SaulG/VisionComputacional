@@ -16,5 +16,10 @@ ventana = pygame.display.set_mode((width, height))
 #Se colorea en blanco la ventana
 ventana.fill(pygame.Color(255, 255, 255))
 
+#Loop infinito
 while True:
-    print "ventana"
+    #Se agrega el evento de cerrar en la ventana;
+    #Si este llega a ser usado esta ventana se cierra
+    # es por eso que esta break
+    if pygame.QUIT in [e.type for e in pygame.event.get()]:
+        break
