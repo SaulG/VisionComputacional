@@ -1,13 +1,10 @@
 #Libreria pygame,PIL
 import pygame
+#from pygame.locals import *
 from PIL import Image
-
-#Carga nombre de la imagen
+#imagen
 imagen_archivo = "comida_indu.png"
-
-#Abre imagen y lo guarda en variable imagen
 imagen = Image.open(imagen_archivo)
-
 #obtenemos el ancho y altura de la imagen
 width,height = imagen.size
 
@@ -18,9 +15,12 @@ pygame.init()
 #Se crea la ventana con el ancho y la altura correspondiente
 ventana = pygame.display.set_mode((width, height))
 
+fondo = pygame.image.load(imagen_archivo).convert()
+
+ventana.blit(fondo,(50,50))
 #Se colorea en blanco la ventana
 ventana.fill(pygame.Color(255, 255, 255))
-
+pygame.display.flip()
 #Loop infinito
 while True:
     #Se agrega el evento de cerrar en la ventana;
