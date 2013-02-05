@@ -19,8 +19,11 @@ def escalaDeGrises(im):
     im2 = Image.fromarray(data)
     return im2
 imagen = Image.open('comida_indu.png')
-imagen = escalaDeGrises(imagen)
+imagenModificada = imagen
+imagenModificada = escalaDeGrises(imagen)
 root = Tkinter.Tk()
 tkimage = ImageTk.PhotoImage(imagen)
+tkimageMod = ImageTk.PhotoImage(imagenModificada)
 Tkinter.Label(root, image = tkimage).pack()
+Tkinter.Label(root, image = tkimageMod).pack()
 root.mainloop()
