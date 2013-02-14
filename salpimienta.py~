@@ -1,5 +1,5 @@
 import numpy as np
-import Tkinter
+from Tkinter import *
 from PIL import ImageDraw
 import Image
 import ImageTk
@@ -88,16 +88,23 @@ def escalaDeGrises(im):
     im2 = Image.fromarray(data)
     return im2
 
+def iteracionesLimpiadoDeEfectoSaltPepper(imagen, iteraciones):
+    if iteraciones == 0:
+        return limpiandoEfectoSaltPepper(imagen)
+    return iteracionesLimpiadoDeEfectoSaltPepper(limpiandoEfectoSaltPepper(imagen), iteraciones - 1)
+    
 def main():
     imagen = Image.open(argv[1])
     original = imagen
     escalaGrises = escalaDeGrises(imagen)
     modificado = efectoSaltPepper(escalaGrises, float(argv[2]))
-    limpio = limpiandoEfectoSaltPepper(modificado)
-    root = Tkinter.Tk()
+    limpio = iteracionesLimpiadoDeEfectoSaltPepper(modificado, int(argv[3]))
+    root = Tk()
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=RIGHT, fill=Y)
     tkimageModf = ImageTk.PhotoImage(modificado)
     tkimageLimpio = ImageTk.PhotoImage(limpio)
-    Tkinter.Label(root, image = tkimageModf).pack()
-    Tkinter.Label(root, image = tkimageLimpio).pack()
+    Label(root, image = tkimageModf).pack(side="left")
+    Label(root, image = tkimageLimpio).pack(side="right")
     root.mainloop()
 main()
