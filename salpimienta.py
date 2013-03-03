@@ -22,7 +22,7 @@ def efectoSaltPepper(original, densidadRuido):
     #se carga la imagen modifica para poder manipularlo
     mod = modificado.load()
     # se iteran las proporciones para acceder al pixel
-    # de la imagen original, según
+    # de la imagen original, segun
     for y in xrange(height):
         for x in xrange(width):
             # se toma el pixel

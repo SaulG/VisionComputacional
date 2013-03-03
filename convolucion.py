@@ -124,6 +124,28 @@ def nuevaImagen(matriz):
     im = Image.fromarray(data)
     return im
 
+def convexHull(imagen):
+    width, height = imagen.size
+    imagen = imagen.convert('RGB')
+    im = imagen.load()
+    contador = 0
+    for x in xrange(height):
+        for y in xrange(width):
+            pixel = im[y, x]
+            if pixel < 0:
+                im[y, x] = 0, 0, 0
+            else:
+                contador+=1
+                if contador == 100:
+                    im[y, x] = 0,255,0
+                    contador = 0
+                else:
+                    im[y, x] = 255, 255, 255
+    data = np.array(imagen)
+    im = Image.fromarray(data)
+    return im
+
+
 def binarizacion(imagen):
     width, height = imagen.size
     imagen = imagen.convert('L')
@@ -138,6 +160,8 @@ def binarizacion(imagen):
     data = np.array(imagen)
     im = Image.fromarray(data)
     return im
+
+#def deteccionLinea(gx, gy, imagen):
 
 def main():
     imagen = Image.open(argv[1])
@@ -168,11 +192,14 @@ def main():
     print "Max: ",np.max(g)," Min: ",np.min(g)
     imagen_nueva = nuevaImagen(g)
     imagen_binaria = binarizacion(imagen_nueva)
+    imagen_convexHull = convexHull(imagen_binaria)
     root = Tkinter.Tk()
     tkimageModf = ImageTk.PhotoImage(imagen_nueva)
     tkimageOrig = ImageTk.PhotoImage(imagen_binaria)
+    tkimageConvexHull = ImageTk.PhotoImage(imagen_convexHull)
     Tkinter.Label(root, image = tkimageModf).pack(side="left")
     Tkinter.Label(root, image = tkimageOrig).pack(side="right")
+    Tkinter.Label(root, image = tkimageConvexHull).pack(side="top")
     t2 =time.time()
     print "Tiempo total: ",t2-t1
     root.mainloop()
